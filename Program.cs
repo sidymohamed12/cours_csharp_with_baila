@@ -67,6 +67,7 @@ namespace gesdette
 
             // -----------------------------RECUPERATION USER CONNECT --------------------
 
+            Console.WriteLine("Création d'un user");
             userService.create(userView.saisie());
             User userConnected = userView.authentification();
             UserConnect.UserConnecte = userConnected;
