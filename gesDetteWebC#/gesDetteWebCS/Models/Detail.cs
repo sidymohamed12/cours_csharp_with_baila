@@ -12,9 +12,9 @@ namespace gesDetteWebCS.Models
         [Required]
         public double MontantVendu { get; set; }
         [Required]
-        public Article? Article { get; set; }
+        public Article Article { get; set; }
         [Required]
-        public Dette? Dette { get; set; }
+        public Dette Dette { get; set; }
 
         public override bool Equals(object? obj)
         {

@@ -7,9 +7,9 @@ namespace gesDetteWebCS.Models
     public class Article : AbstractEntity
     {
         [Required]
-        public string? Libelle { get; set; }
+        public string Libelle { get; set; }
         [Required]
-        public string? Reference { get; set; }
+        public string Reference { get; set; }
         [Required]
         public int QteStock { get; set; }
         [Required]

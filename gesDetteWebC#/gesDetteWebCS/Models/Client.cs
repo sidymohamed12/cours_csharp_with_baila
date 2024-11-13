@@ -8,12 +8,11 @@ namespace gesDetteWebCS.Models
     public class Client : AbstractEntity
     {
         [Required]
-        public string? Surnom { get; set; }
+        public string Surnom { get; set; }
         [Required]
-        public string? Telephone { get; set; }
+        public string Telephone { get; set; }
         [Required]
-        public string? Adresse { get; set; }
-        [Required]
+        public string Adresse { get; set; }
         public User? User { get; set; }
         [NotMapped]
         public List<Dette>? Dettes { get; set; } = [];

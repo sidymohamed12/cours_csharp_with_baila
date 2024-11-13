@@ -8,7 +8,7 @@ namespace gesDetteWebCS.Models
         [Required]
         public DateTime Date { get; set; }
         [Required]
-        public Dette? Dette { get; set; }
+        public Dette Dette { get; set; }
         [Required]
         public double Montant { get; set; }
 

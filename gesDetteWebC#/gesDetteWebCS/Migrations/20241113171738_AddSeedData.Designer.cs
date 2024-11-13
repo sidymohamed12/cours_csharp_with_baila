@@ -12,7 +12,7 @@ using gesDetteWebCS.Data;
 namespace gesDetteWebCS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241113165721_AddSeedData")]
+    [Migration("20241113171738_AddSeedData")]
     partial class AddSeedData
     {
         /// <inheritdoc />
@@ -84,7 +84,7 @@ namespace gesDetteWebCS.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -239,9 +239,7 @@ namespace gesDetteWebCS.Migrations
                 {
                     b.HasOne("gesDetteWebCS.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });

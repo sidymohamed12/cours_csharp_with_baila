@@ -17,7 +17,7 @@ namespace gesDetteWebCS.Models
         [Required]
         public DateTime Date { get; set; }
         [Required]
-        public Client? ClientD { get; set; }
+        public Client ClientD { get; set; }
         [Required]
         public Etat EtatD { get; set; }
         [NotMapped]
