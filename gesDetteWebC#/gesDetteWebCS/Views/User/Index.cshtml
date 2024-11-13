@@ -1,0 +1,75 @@
+@model IEnumerable<gesDetteWebCS.Models.User>
+
+@{
+}
+
+<div class="margin-auto mt-10 p-5">
+    <div class="flex flex-row justify-between px-5 mb-5">
+        <form action="" class="w-fit border-collapse flex flex-row align-middle justify-center">
+            <div class="relative">
+                <div
+                    class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-user-search">
+                        <circle cx="10" cy="7" r="4" />
+                        <path d="M10.3 15H7a4 4 0 0 0-4 4v2" />
+                        <circle cx="17" cy="17" r="3" />
+                        <path d="m21 21-1.9-1.9" />
+                    </svg>
+                </div>
+                <input type="text" name="" id=""
+                    class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
+
+            </div>
+
+            <input type="submit" value="Search"
+                class="text-white ml-3 bg-gradient-to-br from-green-400 to-blue-600 font-medium rounded-lg text-sm px-6 py-1 text-center mb-1">
+
+        </form>
+
+        <a asp-action="Create"
+            class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl font-medium rounded-lg text-xl text-center px-8 py-2">
+            + Add User
+        </a>
+    </div>
+    <div class="relative overflow-x-auto sm:rounded-lg shadow-xl">
+        <table class="w-full mb-5 text-sm text-center rtl:text-right text-gray-500">
+            <thead class="text-sm text-white uppercase bg-gradient-to-br from-green-400 to-blue-600">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        @Html.DisplayNameFor(model => model.Login)
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        @Html.DisplayNameFor(model => model.Password)
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        @Html.DisplayNameFor(model => model.Role)
+                    </th>
+                    <th scope="col" class="px-6 py-3">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="bg-white border-b hover:bg-blue-200">
+                        <td class="px-6 py-4">
+                            @Html.DisplayFor(modelItem => item.Login)
+                        </td>
+                        <td class="px-6 py-4">
+                            @Html.DisplayFor(modelItem => item.Password)
+                        </td>
+                        <td class="px-6 py-4">
+                            @Html.DisplayFor(modelItem => item.Role)
+                        </td>
+                        <td class="px-6 py-4">
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

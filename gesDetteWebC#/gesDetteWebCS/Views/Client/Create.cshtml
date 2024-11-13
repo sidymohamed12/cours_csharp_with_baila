@@ -1,0 +1,68 @@
+@model gesDetteWebCS.Models.Client
+
+@{
+}
+
+<div class="px-5 w-1/2 mt-5 mx-auto border-2 bg-gradient-to-br from-green-400 to-blue-600 py-5">
+    <h1 class="text-white mb-5 pb-3 text-4xl text-center font-bold border-bottom-3 border-b-2 border-stone-50">CREATION
+        CLIENT</h1>
+    <form asp-action="Create" class="px-5 ">
+
+        <div asp-validation-summary="ModelOnly" class="text-red-600 text-sm mt-1"></div>
+        <div class="mb-5 mx-auto ">
+            <label asp-for="Surnom" class="text-xl font-medium text-white control-label"></label>
+            <input asp-for="Surnom"
+                class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-xl" />
+            <span asp-validation-for="Surnom" class="text-red-600 text-sm mt-1"></span>
+        </div>
+        <div class="mb-5 mx-auto ">
+            <label asp-for="Telephone" class="text-xl font-medium text-white control-label"></label>
+            <input asp-for="Telephone"
+                class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-xl" />
+            <span asp-validation-for="Telephone" class="text-red-600 text-sm mt-1"></span>
+        </div>
+        <div class="mb-5 mx-auto ">
+            <label asp-for="Adresse" class="text-xl font-medium text-white control-label"></label>
+            <input asp-for="Adresse"
+                class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-xl" />
+            <span asp-validation-for="Adresse" class="text-red-600 text-sm mt-1"></span>
+        </div>
+
+        <label for="">créer compte</label>
+        <div class="flex items-center">
+            <label class="switch mr-5">
+                <input type="checkbox" class="checkbox" id="toggleSwitch" name="toggleSwitch">
+                <div class="slider"></div>
+            </label>
+        </div>
+
+        <div id="userSwitch">
+            <h2 class="text-white mb-5 pb-3 mt-5 text-2xl border-b-2 border-neutral-50 font-bold text-center">
+                création compte utilisateur :
+            </h2>
+            <div class="mb-5 mx-auto">
+                <label asp-for="User.Login" class="text-xl font-medium text-white control-label"></label>
+                <input asp-for="User.Login"
+                    class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-xl" />
+                <span asp-validation-for="User.Login" class="text-red-600 text-sm mt-1"></span>
+            </div>
+
+            <div class="mb-5 mx-auto">
+                <label asp-for="User.Password" class="text-xl font-medium text-white control-label"></label>
+                <input asp-for="User.Password" type="password"
+                    class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-xl" />
+                <span asp-validation-for="User.Password" class="text-red-600 text-sm mt-1"></span>
+            </div>
+        </div>
+        <div class="mb-5 mx-auto flex justify-center">
+            <input type="submit" value="Create"
+                class="mt-3 mb-3 px-8 py-2 text-xl font-medium text-gray-900 rounded-lg bg-white m-auto cursor-pointer" />
+        </div>
+    </form>
+</div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+</div>
