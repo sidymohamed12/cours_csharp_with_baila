@@ -7,15 +7,17 @@ namespace gesDetteWebCS.Models
 {
     public class User : AbstractEntity
     {
-
+        [Required]
         public string? Login { get; set; }
         [MaxLength(60)]
+        [Required]
         public string? Password { get; set; }
-
+        [Required]
         public Role Role { get; set; }
-
+        [Required]
         public bool Etat { get; set; }
         [NotMapped]
+        [Required]
         public Client? Client { get; set; }
 
         public override bool Equals(object? obj)

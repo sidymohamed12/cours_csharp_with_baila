@@ -66,12 +66,72 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/DELL/Documents/C\# baila/gesDetteWebC\#/gesDetteWebCS/Views/Detail/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGV0YWlsXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/Documents/C\# baila/gesDetteWebC\#/gesDetteWebCS/Views/Detail/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGV0YWlsXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/Documents/C\# baila/gesDetteWebC\#/gesDetteWebCS/Views/Detail/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGV0YWlsXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/Documents/C\# baila/gesDetteWebC\#/gesDetteWebCS/Views/Detail/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGV0YWlsXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/Documents/C\# baila/gesDetteWebC\#/gesDetteWebCS/Views/Detail/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGV0YWlsXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/Documents/C\# baila/gesDetteWebC\#/gesDetteWebCS/Views/Dette/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGV0dGVcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/Documents/C\# baila/gesDetteWebC\#/gesDetteWebCS/Views/Dette/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGV0dGVcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/Documents/C\# baila/gesDetteWebC\#/gesDetteWebCS/Views/Dette/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGV0dGVcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/Documents/C\# baila/gesDetteWebC\#/gesDetteWebCS/Views/Dette/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGV0dGVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/Documents/C\# baila/gesDetteWebC\#/gesDetteWebCS/Views/Dette/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGV0dGVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/DELL/Documents/C\# baila/gesDetteWebC\#/gesDetteWebCS/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/DELL/Documents/C\# baila/gesDetteWebC\#/gesDetteWebCS/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/Documents/C\# baila/gesDetteWebC\#/gesDetteWebCS/Views/Payement/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5ZW1lbnRcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/Documents/C\# baila/gesDetteWebC\#/gesDetteWebCS/Views/Payement/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5ZW1lbnRcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/Documents/C\# baila/gesDetteWebC\#/gesDetteWebCS/Views/Payement/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5ZW1lbnRcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/Documents/C\# baila/gesDetteWebC\#/gesDetteWebCS/Views/Payement/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5ZW1lbnRcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DELL/Documents/C\# baila/gesDetteWebC\#/gesDetteWebCS/Views/Payement/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5ZW1lbnRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/DELL/Documents/C\# baila/gesDetteWebC\#/gesDetteWebCS/Views/Shared/Error.cshtml]

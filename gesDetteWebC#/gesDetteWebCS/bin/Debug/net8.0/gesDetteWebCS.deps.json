@@ -12,7 +12,8 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.10",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.10",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "8.0.6",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.10"
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.10",
+          "X.PagedList.Mvc.Core": "10.5.3"
         },
         "runtime": {
           "gesDetteWebCS.dll": {}
@@ -1934,6 +1935,25 @@
             "fileVersion": "7.0.22.51805"
           }
         }
+      },
+      "X.PagedList/10.5.3": {
+        "runtime": {
+          "lib/net8.0/X.PagedList.dll": {
+            "assemblyVersion": "10.5.3.0",
+            "fileVersion": "10.5.3.0"
+          }
+        }
+      },
+      "X.PagedList.Mvc.Core/10.5.3": {
+        "dependencies": {
+          "X.PagedList": "10.5.3"
+        },
+        "runtime": {
+          "lib/net8.0/X.PagedList.Mvc.Core.dll": {
+            "assemblyVersion": "10.5.3.0",
+            "fileVersion": "10.5.3.0"
+          }
+        }
       }
     }
   },
@@ -3076,6 +3096,20 @@
       "sha512": "sha512-bR4qdCmssMMbo9Fatci49An5B1UaVJZHKNq70PRgzoLYIlitb8Tj7ns/Xt5Pz1CkERiTjcVBDU2y1AVrPBYkaw==",
       "path": "system.windows.extensions/7.0.0",
       "hashPath": "system.windows.extensions.7.0.0.nupkg.sha512"
+    },
+    "X.PagedList/10.5.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nE/KRWCHxT3giCmQY6y5i+2auc7eBDSmkT5VMnh5OOyzsp+OzcJOVjQAimKocqR2l+uBptsUyeBbQUPSDilqNQ==",
+      "path": "x.pagedlist/10.5.3",
+      "hashPath": "x.pagedlist.10.5.3.nupkg.sha512"
+    },
+    "X.PagedList.Mvc.Core/10.5.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-k++KfbXi1cfBT+eoIc0bTvE653XUjguSAjklR/VJnsebk2ClP9IXfACZIVXnFIiu+C2wi7iMC2G3WOUNEZDCTw==",
+      "path": "x.pagedlist.mvc.core/10.5.3",
+      "hashPath": "x.pagedlist.mvc.core.10.5.3.nupkg.sha512"
     }
   }
 }

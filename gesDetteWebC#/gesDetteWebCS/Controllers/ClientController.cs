@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using gesDetteWebCS.Models;
 using gesDetteWebCS.Data;
@@ -23,9 +18,18 @@ namespace gesDetteWebCS.Controllers
         }
 
         // GET: Client
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 3)
         {
-            return View(await _context.Clients.ToListAsync());
+            var clients = await _context.Clients
+                                        .Skip((pageNumber - 1) * pageSize)
+                                        .Take(pageSize)
+                                        .ToListAsync();
+
+            int totalClients = await _context.Clients.CountAsync();
+            ViewBag.TotalPages = (int)Math.Ceiling(totalClients / (double)pageSize);
+            ViewBag.CurrentPage = pageNumber;
+
+            return View(clients);
         }
 
         // GET: Client/Details/5
@@ -35,6 +39,7 @@ namespace gesDetteWebCS.Controllers
             {
                 return NotFound();
             }
+
 
             var client = await _context.Clients
                 .FirstOrDefaultAsync(m => m.Id == id);

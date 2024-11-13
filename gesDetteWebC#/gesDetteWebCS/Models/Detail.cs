@@ -1,17 +1,19 @@
 
 
+using System.ComponentModel.DataAnnotations;
+
 namespace gesDetteWebCS.Models
 
 {
     public class Detail : AbstractEntity
     {
-
+        [Required]
         public int QteVendu { get; set; }
-
+        [Required]
         public double MontantVendu { get; set; }
-
+        [Required]
         public Article? Article { get; set; }
-
+        [Required]
         public Dette? Dette { get; set; }
 
         public override bool Equals(object? obj)

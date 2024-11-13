@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("gesDetteWebCS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+69ad28535ccd5eabac3f16f58b2cfeb9137c05ed")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6ab50cadbf09522fd42084111656abfcab4a85ee")]
 [assembly: System.Reflection.AssemblyProductAttribute("gesDetteWebCS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("gesDetteWebCS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

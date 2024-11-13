@@ -1,30 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using gesDetteWebCS.Models;
 using gesDetteWebCS.Data;
-
+using gesDetteWebCS.Models;
 
 namespace gesDetteWebCS.Controllers
 {
-    using BCrypt.Net;
-    using gesDetteWebCS.Models.enums;
-
-    public class UserController : Controller
+    public class PayementController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public UserController(ApplicationDbContext context)
+        public PayementController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: User
+        // GET: Payement
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            return View(await _context.Payements.ToListAsync());
         }
 
-        // GET: User/Details/5
+        // GET: Payement/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,48 +33,39 @@ namespace gesDetteWebCS.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users
+            var payement = await _context.Payements
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+            if (payement == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(payement);
         }
 
-        // GET: User/Create
+        // GET: Payement/Create
         public IActionResult Create()
         {
-            var roles = Enum.GetValues(typeof(Role))
-                    .Cast<Role>()
-                    .Select(r => (Value: r.ToString(), Text: r.ToString()))
-                    .ToList();
-
-            ViewData["Roles"] = roles;
             return View();
         }
 
-        // POST: User/Create
+        // POST: Payement/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Login,Password,Role,Etat,Id,CreatedAt,UpdatedAt")] User user)
+        public async Task<IActionResult> Create([Bind("Date,Montant,Id,CreatedAt,UpdatedAt")] Payement payement)
         {
             if (ModelState.IsValid)
             {
-                user.Etat = true;
-                user.onPrePersist();
-                BCrypt.HashPassword(user.Password);
-                _context.Add(user);
+                _context.Add(payement);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(payement);
         }
 
-        // GET: User/Edit/5
+        // GET: Payement/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,22 +73,22 @@ namespace gesDetteWebCS.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var payement = await _context.Payements.FindAsync(id);
+            if (payement == null)
             {
                 return NotFound();
             }
-            return View(user);
+            return View(payement);
         }
 
-        // POST: User/Edit/5
+        // POST: Payement/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Login,Password,Role,Etat,Id,CreatedAt,UpdatedAt")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("Date,Montant,Id,CreatedAt,UpdatedAt")] Payement payement)
         {
-            if (id != user.Id)
+            if (id != payement.Id)
             {
                 return NotFound();
             }
@@ -105,12 +97,12 @@ namespace gesDetteWebCS.Controllers
             {
                 try
                 {
-                    _context.Update(user);
+                    _context.Update(payement);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.Id))
+                    if (!PayementExists(payement.Id))
                     {
                         return NotFound();
                     }
@@ -121,10 +113,10 @@ namespace gesDetteWebCS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(payement);
         }
 
-        // GET: User/Delete/5
+        // GET: Payement/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,34 +124,34 @@ namespace gesDetteWebCS.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users
+            var payement = await _context.Payements
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+            if (payement == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(payement);
         }
 
-        // POST: User/Delete/5
+        // POST: Payement/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user != null)
+            var payement = await _context.Payements.FindAsync(id);
+            if (payement != null)
             {
-                _context.Users.Remove(user);
+                _context.Payements.Remove(payement);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserExists(int id)
+        private bool PayementExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Payements.Any(e => e.Id == id);
         }
     }
 }

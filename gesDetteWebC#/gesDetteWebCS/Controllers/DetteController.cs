@@ -1,30 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using gesDetteWebCS.Models;
 using gesDetteWebCS.Data;
-
+using gesDetteWebCS.Models;
 
 namespace gesDetteWebCS.Controllers
 {
-    using BCrypt.Net;
-    using gesDetteWebCS.Models.enums;
-
-    public class UserController : Controller
+    public class DetteController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public UserController(ApplicationDbContext context)
+        public DetteController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: User
+        // GET: Dette
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            return View(await _context.Dettes.ToListAsync());
         }
 
-        // GET: User/Details/5
+        // GET: Dette/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,48 +33,39 @@ namespace gesDetteWebCS.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users
+            var dette = await _context.Dettes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+            if (dette == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(dette);
         }
 
-        // GET: User/Create
+        // GET: Dette/Create
         public IActionResult Create()
         {
-            var roles = Enum.GetValues(typeof(Role))
-                    .Cast<Role>()
-                    .Select(r => (Value: r.ToString(), Text: r.ToString()))
-                    .ToList();
-
-            ViewData["Roles"] = roles;
             return View();
         }
 
-        // POST: User/Create
+        // POST: Dette/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Login,Password,Role,Etat,Id,CreatedAt,UpdatedAt")] User user)
+        public async Task<IActionResult> Create([Bind("Montant,MontantVerser,MontantRestant,Archiver,Date,EtatD,Id,CreatedAt,UpdatedAt")] Dette dette)
         {
             if (ModelState.IsValid)
             {
-                user.Etat = true;
-                user.onPrePersist();
-                BCrypt.HashPassword(user.Password);
-                _context.Add(user);
+                _context.Add(dette);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(dette);
         }
 
-        // GET: User/Edit/5
+        // GET: Dette/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,22 +73,22 @@ namespace gesDetteWebCS.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var dette = await _context.Dettes.FindAsync(id);
+            if (dette == null)
             {
                 return NotFound();
             }
-            return View(user);
+            return View(dette);
         }
 
-        // POST: User/Edit/5
+        // POST: Dette/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Login,Password,Role,Etat,Id,CreatedAt,UpdatedAt")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("Montant,MontantVerser,MontantRestant,Archiver,Date,EtatD,Id,CreatedAt,UpdatedAt")] Dette dette)
         {
-            if (id != user.Id)
+            if (id != dette.Id)
             {
                 return NotFound();
             }
@@ -105,12 +97,12 @@ namespace gesDetteWebCS.Controllers
             {
                 try
                 {
-                    _context.Update(user);
+                    _context.Update(dette);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.Id))
+                    if (!DetteExists(dette.Id))
                     {
                         return NotFound();
                     }
@@ -121,10 +113,10 @@ namespace gesDetteWebCS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(dette);
         }
 
-        // GET: User/Delete/5
+        // GET: Dette/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,34 +124,34 @@ namespace gesDetteWebCS.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users
+            var dette = await _context.Dettes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+            if (dette == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(dette);
         }
 
-        // POST: User/Delete/5
+        // POST: Dette/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user != null)
+            var dette = await _context.Dettes.FindAsync(id);
+            if (dette != null)
             {
-                _context.Users.Remove(user);
+                _context.Dettes.Remove(dette);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserExists(int id)
+        private bool DetteExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Dettes.Any(e => e.Id == id);
         }
     }
 }

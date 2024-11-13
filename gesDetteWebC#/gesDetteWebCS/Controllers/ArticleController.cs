@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using gesDetteWebCS.Data;
 using gesDetteWebCS.Models;
@@ -22,7 +17,7 @@ namespace gesDetteWebCS.Controllers
         // GET: Article
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Article.ToListAsync());
+            return View(await _context.Articles.ToListAsync());
         }
 
         // GET: Article/Details/5
@@ -33,7 +28,7 @@ namespace gesDetteWebCS.Controllers
                 return NotFound();
             }
 
-            var article = await _context.Article
+            var article = await _context.Articles
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (article == null)
             {
@@ -73,7 +68,7 @@ namespace gesDetteWebCS.Controllers
                 return NotFound();
             }
 
-            var article = await _context.Article.FindAsync(id);
+            var article = await _context.Articles.FindAsync(id);
             if (article == null)
             {
                 return NotFound();
@@ -124,7 +119,7 @@ namespace gesDetteWebCS.Controllers
                 return NotFound();
             }
 
-            var article = await _context.Article
+            var article = await _context.Articles
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (article == null)
             {
@@ -139,10 +134,10 @@ namespace gesDetteWebCS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var article = await _context.Article.FindAsync(id);
+            var article = await _context.Articles.FindAsync(id);
             if (article != null)
             {
-                _context.Article.Remove(article);
+                _context.Articles.Remove(article);
             }
 
             await _context.SaveChangesAsync();
@@ -151,7 +146,7 @@ namespace gesDetteWebCS.Controllers
 
         private bool ArticleExists(int id)
         {
-            return _context.Article.Any(e => e.Id == id);
+            return _context.Articles.Any(e => e.Id == id);
         }
     }
 }

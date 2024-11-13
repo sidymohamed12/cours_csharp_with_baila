@@ -1,4 +1,5 @@
 
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace gesDetteWebCS.Models
@@ -6,16 +7,16 @@ namespace gesDetteWebCS.Models
 {
     public class Client : AbstractEntity
     {
-
+        [Required]
         public string? Surnom { get; set; }
-
+        [Required]
         public string? Telephone { get; set; }
-
+        [Required]
         public string? Adresse { get; set; }
-
+        [Required]
         public User? User { get; set; }
         [NotMapped]
-        public List<Dette>? Dettes { get; set; }
+        public List<Dette>? Dettes { get; set; } = [];
 
         public void AddDettes(Dette dette)
         {

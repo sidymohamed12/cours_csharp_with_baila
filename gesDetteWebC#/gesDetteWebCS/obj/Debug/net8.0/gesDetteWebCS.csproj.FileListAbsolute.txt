@@ -86,6 +86,8 @@ C:\Users\DELL\Documents\C# baila\gesDetteWebC#\gesDetteWebCS\bin\Debug\net8.0\Sy
 C:\Users\DELL\Documents\C# baila\gesDetteWebC#\gesDetteWebCS\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\DELL\Documents\C# baila\gesDetteWebC#\gesDetteWebCS\bin\Debug\net8.0\System.Security.Permissions.dll
 C:\Users\DELL\Documents\C# baila\gesDetteWebC#\gesDetteWebCS\bin\Debug\net8.0\System.Windows.Extensions.dll
+C:\Users\DELL\Documents\C# baila\gesDetteWebC#\gesDetteWebCS\bin\Debug\net8.0\X.PagedList.dll
+C:\Users\DELL\Documents\C# baila\gesDetteWebC#\gesDetteWebCS\bin\Debug\net8.0\X.PagedList.Mvc.Core.dll
 C:\Users\DELL\Documents\C# baila\gesDetteWebC#\gesDetteWebCS\bin\Debug\net8.0\af\Humanizer.resources.dll
 C:\Users\DELL\Documents\C# baila\gesDetteWebC#\gesDetteWebCS\bin\Debug\net8.0\ar\Humanizer.resources.dll
 C:\Users\DELL\Documents\C# baila\gesDetteWebC#\gesDetteWebCS\bin\Debug\net8.0\az\Humanizer.resources.dll
@@ -241,6 +243,7 @@ C:\Users\DELL\Documents\C# baila\gesDetteWebC#\gesDetteWebCS\obj\Debug\net8.0\ge
 C:\Users\DELL\Documents\C# baila\gesDetteWebC#\gesDetteWebCS\obj\Debug\net8.0\gesDetteWebCS.AssemblyInfoInputs.cache
 C:\Users\DELL\Documents\C# baila\gesDetteWebC#\gesDetteWebCS\obj\Debug\net8.0\gesDetteWebCS.AssemblyInfo.cs
 C:\Users\DELL\Documents\C# baila\gesDetteWebC#\gesDetteWebCS\obj\Debug\net8.0\gesDetteWebCS.csproj.CoreCompileInputs.cache
+C:\Users\DELL\Documents\C# baila\gesDetteWebC#\gesDetteWebCS\obj\Debug\net8.0\gesDetteWebCS.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\DELL\Documents\C# baila\gesDetteWebC#\gesDetteWebCS\obj\Debug\net8.0\gesDetteWebCS.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\DELL\Documents\C# baila\gesDetteWebC#\gesDetteWebCS\obj\Debug\net8.0\gesDetteWebCS.RazorAssemblyInfo.cache
 C:\Users\DELL\Documents\C# baila\gesDetteWebC#\gesDetteWebCS\obj\Debug\net8.0\gesDetteWebCS.RazorAssemblyInfo.cs
