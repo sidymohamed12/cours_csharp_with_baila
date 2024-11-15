@@ -1,74 +1,40 @@
 @model gesDetteWebCS.Models.Dette
 
-@{
-    Layout = null;
-}
+<div class="bg-gradient-to-br from-green-400 to-blue-600 px-6 py-5 mx-auto mt-14 my-5 box-shadow3" style="width: 60%">
+    <h1 class="text-center text-3xl mb-8 font-semibold underline">Nouvelle Ajout de Dette</h1>
 
-<!DOCTYPE html>
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
+        <div class="mb-5 mx-auto">
+            <label asp-for="ClientD" class="text-xl font-medium text-white control-label"></label>
+            <select asp-for="ClientD" name="clientId"
+                class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-xl">
+                <option value="">-- Select a Client --</option>
+                @if ((IEnumerable<Client>)ViewData["Clients"] != null)
+                {
+                    @foreach (var client in (IEnumerable<Client>)ViewData["Clients"])
+                    {
+                        <option value="@client.Id">@client.Surnom</option>
+                    }
+                }
+            </select>
 
-<h4>Dette</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Montant" class="control-label"></label>
-                <input asp-for="Montant" class="form-control" />
-                <span asp-validation-for="Montant" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MontantVerser" class="control-label"></label>
-                <input asp-for="MontantVerser" class="form-control" />
-                <span asp-validation-for="MontantVerser" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MontantRestant" class="control-label"></label>
-                <input asp-for="MontantRestant" class="form-control" />
-                <span asp-validation-for="MontantRestant" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Archiver" /> @Html.DisplayNameFor(model => model.Archiver)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EtatD" class="control-label"></label>
-                <select asp-for="EtatD" class="form-control"></select>
-                <span asp-validation-for="EtatD" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdatedAt" class="control-label"></label>
-                <input asp-for="UpdatedAt" class="form-control" />
-                <span asp-validation-for="UpdatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+            <span asp-validation-for="ClientD" class="text-red-600 text-sm mt-1"></span>
+
+        </div>
+
+        <div class="mb-5 mx-auto">
+            <label asp-for="Montant" class="text-xl font-medium text-white control-label"></label>
+            <input asp-for="Montant" type="number"
+                class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-xl" />
+            <span asp-validation-for="Montant" class="text-red-600 text-sm mt-1"></span>
+        </div>
+
+        <!-- Bouton de création de dette -->
+        <div class="flex justify-center align-middle">
+            <input type="submit" value="Create Dette"
+                class="cursor-pointer text-slate-800 bg-green-400 font-medium rounded box-shadow px-5 py-3 text-center mt-8 mb-3 mx-auto w-1/2" />
+        </div>
+    </form>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-</body>
-</html>

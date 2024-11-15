@@ -14,7 +14,6 @@ namespace gesDetteWebCS.Models
         [Required]
         public string Adresse { get; set; }
         public User? User { get; set; }
-        [NotMapped]
         public List<Dette>? Dettes { get; set; } = [];
 
         public void AddDettes(Dette dette)

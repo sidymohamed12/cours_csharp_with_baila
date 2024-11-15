@@ -1,48 +1,110 @@
 @model gesDetteWebCS.Models.Client
 
 @{
-    Layout = null;
 }
 
-<!DOCTYPE html>
 
-<html>
 
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Details</title>
-    </head>
+<div class="p-4 sm:p-6 md:p-8 my-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+        <!-- Carte Total des Dettes -->
+        <div
+            class="rounded-lg text-white font-semibold text-lg sm:text-xl md:text-2xl flex flex-col justify-between bg-gray-900">
+            <div class="flex flex-col justify-center">
+                <div class="flex flex-row justify-center align-middle bg-gradient-to-br from-green-400 to-blue-600">
+                    <h1 class="mb-3 mt-2 text-2xl underline">Infos Client</h1>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="ml-3 mb-3 mt-4">
+                        <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                        <path d="M15 18a3 3 0 1 0-6 0" />
+                        <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z" />
+                        <circle cx="12" cy="13" r="2" />
+                    </svg>
+                </div>
+                <div class="flex flex-row m-auto mt-3 mb-3 items-center justify-center">
+                    <img src="https://i.pinimg.com/enabled_lo/564x/7c/bb/5c/7cbb5c5ac31d7b981bb303ad30bc6992.jpg"
+                        alt="User Photo" class="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full mr-8" />
+                    <div class="text-left flex flex-col justify-center">
+                        <p class="mb-3 text-green-400">Surnom: @Html.DisplayFor(model => model.Surnom)</p>
+                        <p class="mb-2 text-green-400">Tel: @Html.DisplayFor(model => model.Telephone)</p>
+                        <p class="text-green-400">Adresse: @Html.DisplayFor(model => model.Adresse)</p>
 
-    <body>
-
-        <div>
-            <h4>Client</h4>
-            <hr />
-            <dl class="row">
-                <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Surnom)
-                </dt>
-                <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Surnom)
-                </dd>
-                <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Telephone)
-                </dt>
-                <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Telephone)
-                </dd>
-                <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Adresse)
-                </dt>
-                <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Adresse)
-                </dd>
-            </dl>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-            <a asp-action="Index">Back to List</a>
-        </div>
-    </body>
 
-</html>
+        <!-- Carte Demandes en Cours -->
+        <div
+            class="rounded-md font-semibold text-center text-white text-lg sm:text-xl md:text-3xl flex flex-col justify-between bg-gray-900">
+            <div class="flex flex-row justify-center align-middle bg-gradient-to-br from-green-400 to-blue-600">
+                <h1 class="mb-3 mt-2 text-2xl underline">Infos Dette</h1>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="ml-3 mb-3 mt-3">
+                    <path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" />
+                    <path
+                        d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" />
+                    <path d="m2 16 6 6" />
+                    <circle cx="16" cy="9" r="2.9" />
+                    <circle cx="6" cy="5" r="3" />
+                </svg>
+            </div>
+            <p class="text-green-400 mt-2">Montant Total: @ViewData["TotalMontantDettes"] FCFA</p>
+            <p class="text-green-400">Montant Versé: @ViewData["TotalMontantVerserDettes"] FCFA</p>
+            <p class="text-green-400 mb-5">
+                Montant Restant: @ViewData["TotalMontantRestantDettes"] FCFA
+            </p>
+        </div>
+    </div>
+</div>
+
+    <table class="w-full mb-5 text-sm text-center rtl:text-right text-gray-500">
+        @if (Model.Dettes != null && Model.Dettes.Any())
+{
+        <thead class="text-sm text-white uppercase bg-gradient-to-br from-green-400 to-blue-600">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Date
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Montant
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Montant Verser
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Montant Restant
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dette in Model.Dettes)
+            {
+                <tr class="bg-white border-b hover:bg-blue-200">
+                    <td class="px-6 py-4">
+                        @dette.Date
+                    </td>
+
+                    <td class="px-6 py-4">
+                        @dette.Montant
+                    </td>
+
+                    <td class="px-6 py-4">
+                        @dette.MontantVerser
+                    </td>
+
+                    <td class="px-6 py-4">
+                        @dette.MontantRestant
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+        }else
+{
+    <p>Ce client n'a pas de dettes enregistrées.</p>
+}
+    </table>
+

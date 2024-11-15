@@ -10,14 +10,13 @@ namespace gesDetteWebCS.Models
         public double Montant { get; set; }
         [Required]
         public double MontantVerser { get; set; }
-        [Required]
-        public double MontantRestant { get; set; }
+        [NotMapped]
+        public double MontantRestant { get => Montant - MontantVerser; }
         [Required]
         public bool Archiver { get; set; }
         [Required]
         public DateTime Date { get; set; }
-        [Required]
-        public Client ClientD { get; set; }
+        public Client? ClientD { get; set; }
         [Required]
         public Etat EtatD { get; set; }
         [NotMapped]
@@ -27,11 +26,7 @@ namespace gesDetteWebCS.Models
 
         public void addDetail(Detail detail) { Details?.Add(detail); }
 
-        public void addPayement(Payement pay)
-        {
-            Payements?.Add(pay);
-            MontantRestant = Montant - MontantVerser;
-        }
+        public void addPayement(Payement pay) => Payements?.Add(pay);
 
         public override bool Equals(object? obj)
         {

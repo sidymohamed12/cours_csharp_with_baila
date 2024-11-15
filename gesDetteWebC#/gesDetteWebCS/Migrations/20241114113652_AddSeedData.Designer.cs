@@ -12,7 +12,7 @@ using gesDetteWebCS.Data;
 namespace gesDetteWebCS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241113171738_AddSeedData")]
+    [Migration("20241114113652_AddSeedData")]
     partial class AddSeedData
     {
         /// <inheritdoc />
@@ -153,9 +153,6 @@ namespace gesDetteWebCS.Migrations
                         .HasColumnType("integer");
 
                     b.Property<double>("Montant")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("MontantRestant")
                         .HasColumnType("double precision");
 
                     b.Property<double>("MontantVerser")

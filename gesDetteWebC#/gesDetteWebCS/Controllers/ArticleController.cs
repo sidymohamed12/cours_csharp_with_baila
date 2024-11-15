@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using gesDetteWebCS.Data;
 using gesDetteWebCS.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace gesDetteWebCS.Controllers
 {
@@ -15,9 +16,25 @@ namespace gesDetteWebCS.Controllers
         }
 
         // GET: Article
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? etat, int pageNumber = 1, int pageSize = 4)
         {
-            return View(await _context.Articles.ToListAsync());
+
+            var query = _context.Articles.AsQueryable();
+            if (etat.HasValue)
+            {
+                query = etat.Value == 1
+                ? query.Where(a => a.QteStock > 0)
+                : query.Where(a => a.QteStock == 0);
+            }
+            ViewBag.SelectedEtat = etat;
+
+            var articles = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            int totalArticles = await query.CountAsync();
+            ViewBag.TotalPages = (int)Math.Ceiling(totalArticles / (double)pageSize);
+            ViewBag.CurrentPage = pageNumber;
+
+            return View(articles);
         }
 
         // GET: Article/Details/5

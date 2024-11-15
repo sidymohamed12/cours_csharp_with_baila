@@ -44,8 +44,15 @@ namespace gesDetteWebCS.Controllers
         }
 
         // GET: Detail/Create
-        public IActionResult Create()
+        [HttpGet]
+        public async Task<IActionResult> CreateAsync()
         {
+            var clients = await _context.Clients.ToListAsync();
+            ViewData["Clients"] = clients;
+
+            var articles = await _context.Articles.ToListAsync();
+            ViewData["Articles"] = articles;
+
             return View();
         }
 

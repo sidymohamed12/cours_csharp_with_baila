@@ -152,9 +152,6 @@ namespace gesDetteWebCS.Migrations
                     b.Property<double>("Montant")
                         .HasColumnType("double precision");
 
-                    b.Property<double>("MontantRestant")
-                        .HasColumnType("double precision");
-
                     b.Property<double>("MontantVerser")
                         .HasColumnType("double precision");
 

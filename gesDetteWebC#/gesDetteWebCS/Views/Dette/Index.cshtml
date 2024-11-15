@@ -3,86 +3,126 @@
 @{
 }
 
-<!DOCTYPE html>
+<div class="margin-auto mt-10 p-5">
+    <div class="flex flex-row justify-between px-5 mb-5">
+        <form asp-action="Index" method="get" class="w-fit border-collapse flex flex-row align-middle justify-center">
+           <select name="etat" class="ml-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
+                <option value="">Tous</option>
+                <option value="1" selected="@(ViewBag.SelectedEtat == 1)">Soldé</option>
+                <option value="2" selected="@(ViewBag.SelectedEtat == 2)">Non soldé</option>
+            </select>
+            <input type="submit" value="Filtrer"
+                class="text-white ml-3 bg-gradient-to-br from-green-400 to-blue-600 font-medium rounded-lg text-sm px-6 py-1 text-center">
+        </form>
 
-<html>
-
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Index</title>
-    </head>
-
-    <body>
-        <p>
-            <a asp-action="Create">Create New</a>
-        </p>
-        <table class="table">
-            <thead>
+        <a asp-action="Create"
+            class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl font-medium rounded-lg text-xl text-center px-8 py-2">
+            + Add Dette
+        </a>
+    </div>
+    <div class="relative overflow-x-auto sm:rounded-lg shadow-xl">
+        <table class="w-full mb-5 text-sm text-center rtl:text-right text-gray-500">
+            <thead class="text-sm text-white uppercase bg-gradient-to-br from-green-400 to-blue-600">
                 <tr>
-                    <th>
-                    @Html.DisplayNameFor(model => model.Montant)
+                    <th scope="col" class="px-6 py-3">
+                        @Html.DisplayNameFor(model => model.Montant)
                     </th>
-                    <th>
-                    @Html.DisplayNameFor(model => model.MontantVerser)
+                    <th scope="col" class="px-6 py-3">
+                        @Html.DisplayNameFor(model => model.MontantVerser)
                     </th>
-                    <th>
-                    @Html.DisplayNameFor(model => model.MontantRestant)
+                    <th scope="col" class="px-6 py-3">
+                        @Html.DisplayNameFor(model => model.MontantRestant)
                     </th>
-                    <th>
-                    @Html.DisplayNameFor(model => model.Archiver)
+                    <th scope="col" class="px-6 py-3">
+                        @Html.DisplayNameFor(model => model.Date)
                     </th>
-                    <th>
-                    @Html.DisplayNameFor(model => model.Date)
+                    <th scope="col" class="px-6 py-3">
+                        @Html.DisplayNameFor(model => model.EtatD)
                     </th>
-                    <th>
-                    @Html.DisplayNameFor(model => model.EtatD)
+                    <th scope="col" class="px-6 py-3">
+                        @Html.DisplayNameFor(model => model.ClientD.Surnom)
                     </th>
-                    <th>
-                    @Html.DisplayNameFor(model => model.CreatedAt)
+                    <th scope="col" class="px-6 py-3">
+                        @Html.DisplayNameFor(model => model.ClientD.Telephone)
                     </th>
-                    <th>
-                    @Html.DisplayNameFor(model => model.UpdatedAt)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
+                    <th scope="col" class="px-6 py-3">Action</th>
+            </tr>
+        </thead>
+        <tbody>
             @foreach (var item in Model)
             {
-                    <tr>
-                        <td>
+                        <tr class="bg-white border-b hover:bg-blue-200">
+                            <td class="px-6 py-4">
                         @Html.DisplayFor(modelItem => item.Montant)
-                        </td>
-                        <td>
+                    </td>
+                    <td class="px-6 py-4">
                         @Html.DisplayFor(modelItem => item.MontantVerser)
-                        </td>
-                        <td>
+                    </td>
+                    <td class="px-6 py-4">
                         @Html.DisplayFor(modelItem => item.MontantRestant)
-                        </td>
-                        <td>
-                        @Html.DisplayFor(modelItem => item.Archiver)
-                        </td>
-                        <td>
+                    </td>
+                    <td class="px-6 py-4">
                         @Html.DisplayFor(modelItem => item.Date)
-                        </td>
-                        <td>
+                    </td>
+                    <td class="px-6 py-4">
                         @Html.DisplayFor(modelItem => item.EtatD)
-                        </td>
-                        <td>
-                        @Html.DisplayFor(modelItem => item.CreatedAt)
-                        </td>
-                        <td>
-                        @Html.DisplayFor(modelItem => item.UpdatedAt)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        </td>
-                    </tr>
+                    </td>
+                    <td class="px-6 py-4">
+                        @Html.DisplayFor(modelItem => item.ClientD.Surnom)
+                    </td>
+                    <td class="px-6 py-4">
+                        @Html.DisplayFor(modelItem => item.ClientD.Telephone)
+                    </td>
+                    <td class="px-6 py-4">
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
             }
-            </tbody>
-        </table>
-    </body>
-
-</html>
+        </tbody>
+    </table>
+        <nav aria-label="Page navigation example" class="mt-3 flex justify-end mb-5 mr-3">
+            <ul class="flex items-center -space-x-px h-8 text-sm">
+                @if (ViewBag.CurrentPage > 1)
+                {
+                    <li>
+                        <a asp-action="Index" asp-route-pageNumber="@(ViewBag.CurrentPage - 1)" asp-route-etat="@(ViewBag.SelectedEtat)" class=" flex items-center
+                            justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0
+                            border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700">
+                            <span class="sr-only">Previous</span>
+                            <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewbox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 1 1 5l4 4" />
+                            </svg>
+                        </a>
+                    </li>
+                }
+                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <li>
+                        <a asp-action="Index" asp-route-pageNumber="@i" asp-route-etat="@(ViewBag.SelectedEtat)"
+                            class="flex items-center justify-center px-3 h-8 leading-tight border @(i == ViewBag.CurrentPage ? "z-10 text-white border-blue-300 bg-gradient-to-br from-green-400 to-blue-600 hover:bg-blue-200 hover:text-blue-300" : "text-gray-500 bg-white border-gray-300 hover:bg-gray-100 hover:text-gray-700")">
+                            @i
+                        </a>
+                    </li>
+                }
+                @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                {
+                    <li>
+                        <a asp-action="Index" asp-route-pageNumber="@(ViewBag.CurrentPage + 1)" asp-route-etat="@(ViewBag.SelectedEtat)"
+                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700">
+                            <span class="sr-only">Next</span>
+                            <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewbox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m1 9 4-4-4-4" />
+                            </svg>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>

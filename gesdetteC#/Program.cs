@@ -111,14 +111,15 @@ namespace gesdette
             //         }
             // }
 
-            Console.WriteLine("ajout de client : ");
-            Client client = clientView.saisie();
-            clientService.create(client);
-            clientView.linkClientUser(client);
-            Console.WriteLine("----------------- listes Clients------------------ ");
-            clientView.afficher(clientService.findAll());
-            Console.WriteLine("----------------- listes Users-------------------- ");
-            userView.afficher(userService.findAll());
+            // Console.WriteLine("ajout de client : ");
+            // Client client = clientView.saisie();
+            // clientService.create(client);
+            // clientView.linkClientUser(client);
+            // Console.WriteLine("----------------- listes Clients------------------ ");
+            // clientView.afficher(clientService.findAll());
+            // Console.WriteLine("----------------- listes Users-------------------- ");
+            // userView.afficher(userService.findAll());
+
 
         }
 

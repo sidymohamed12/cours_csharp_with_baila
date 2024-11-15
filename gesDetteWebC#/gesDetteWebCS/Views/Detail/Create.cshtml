@@ -1,54 +1,80 @@
 @model gesDetteWebCS.Models.Detail
 
 @{
-    Layout = null;
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
-
-<h4>Detail</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="QteVendu" class="control-label"></label>
-                <input asp-for="QteVendu" class="form-control" />
+<div class="bg-gradient-to-br from-green-400 to-blue-600 px-6 py-5 mx-auto mt-14 my-5 box-shadow3" style="width: 60%">
+    <h1 class="text-center text-3xl mb-8 font-semibold underline">
+        Nouvelle Ajout de Dette
+    </h1>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="mb-5 mx-auto">
+            <label asp-for="Dette" class="text-xl font-medium text-white control-label"></label>
+            <select asp-for="Dette"
+                class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-xl">
+                <option value="">-- Select a Client --</option>
+                @foreach (var client in (IEnumerable<Client>)ViewData["Clients"])
+                {
+                    <option value="@client.Id">@client.Surnom</option>
+                }
+                using Microsoft.EntityFrameworkCore.Metadata.Internal;
+            </select>
+        </div>
+        <!-- DIV INLINE pour Article et Quantité -->
+        <div class="flex flex-row mt-5 justify-between items-center m-auto mb-4">
+            <!-- Article -->
+            <div>
+                <label asp-for="Article" class="block mb-2 text-sm font-medium text-slate-800"></label>
+                <select asp-for="Article"
+                    class="bg-gray-50 border border-slate-800 text-slate-800 text-sm font-medium rounded-lg w-full p-2.5">
+                    <option value="">-- Select a Article --</option>
+                    @foreach (var article in (IEnumerable<Article>)ViewData["Articles"])
+                    {
+                        <option value="@article">@article.Libelle</option>
+                    }
+                </select>
+            </div>
+            <!-- Quantité prise -->
+            <div>
+                <label asp-for="QteVendu" class="block mb-2 text-sm font-medium text-slate-800"></label>
+                <input asp-for="QteVendu"
+                    class="bg-gray-50 border w-full border-gray-300 text-slate-800 text-sm rounded-lg block p-2.5" />
                 <span asp-validation-for="QteVendu" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="MontantVendu" class="control-label"></label>
-                <input asp-for="MontantVendu" class="form-control" />
-                <span asp-validation-for="MontantVendu" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdatedAt" class="control-label"></label>
-                <input asp-for="UpdatedAt" class="form-control" />
-                <span asp-validation-for="UpdatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+
+            <button name="addArticle" type="submit"
+                class="bg-green-400 text-slate-800 font-medium rounded px-5 py-2 text-center mt-6 w-1/5 hover:shadow-none">
+                Ajouter
+            </button>
+        </div>
+
+        <!-- Tableau des articles ajoutés -->
+        <div class="table-responsive">
+            <table class="box-shadow-black2 border-3 mx-auto text-center w-full text-slate-800 mt-16">
+                <thead class="border-b-2 border-slate-800">
+                    <tr class="bg-gray-50">
+                        <th scope="col">Article</th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Montant</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center divide-y divide-slate-800">
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="flex justify-center align-middle ">
+            <input type="submit" value="Create Dette"
+                class="cursor-pointer text-slate-800 bg-green-400 font-medium rounded box-shadow px-5 py-3 text-center mt-8 mb-3 mx-auto w-1/2" />
+        </div>
+    </form>
+</div>
 </div>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
-</body>
-</html>

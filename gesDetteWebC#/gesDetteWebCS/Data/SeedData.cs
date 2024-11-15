@@ -7,10 +7,6 @@ namespace gesDetteWebCS.Data
     {
         public static void Initialize(IServiceProvider serviceProvider, ApplicationDbContext context)
         {
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context), "Le contexte de la base de données est nul.");
-            }
 
             for (int i = 0; i < 10; i++)
             {

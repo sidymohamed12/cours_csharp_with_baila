@@ -79,7 +79,6 @@ namespace gesDetteWebCS.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Montant = table.Column<double>(type: "double precision", nullable: false),
                     MontantVerser = table.Column<double>(type: "double precision", nullable: false),
-                    MontantRestant = table.Column<double>(type: "double precision", nullable: false),
                     Archiver = table.Column<bool>(type: "boolean", nullable: false),
                     Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ClientDId = table.Column<int>(type: "integer", nullable: false),

@@ -19,9 +19,15 @@ namespace gesDetteWebCS.Controllers
         }
 
         // GET: User
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 4)
         {
-            return View(await _context.Users.ToListAsync());
+            var users = await _context.Users.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            int totalUsers = await _context.Users.CountAsync();
+            ViewBag.TotalPages = (int)Math.Ceiling(totalUsers / (double)pageSize);
+            ViewBag.CurrentPage = pageNumber;
+
+            return View(users);
         }
 
         // GET: User/Details/5
@@ -63,6 +69,12 @@ namespace gesDetteWebCS.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (string.IsNullOrWhiteSpace(user.Login) || string.IsNullOrWhiteSpace(user.Password))
+                {
+                    ModelState.AddModelError("User.Login", "Le champ Login est requis.");
+                    ModelState.AddModelError("User.Password", "Le champ Password est requis.");
+                    return View(user);
+                }
                 user.Etat = true;
                 user.onPrePersist();
                 BCrypt.HashPassword(user.Password);
