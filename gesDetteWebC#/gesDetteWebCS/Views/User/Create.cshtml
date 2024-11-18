@@ -7,7 +7,6 @@
     <h1 class="text-white mb-5 pb-3 text-4xl text-center font-bold border-bottom-3 border-b-2 border-stone-50">CREATION
         USER</h1>
     <form asp-action="Create" class="px-5 ">
-        <div asp-validation-summary="ModelOnly" class="text-red-600 text-sm mt-1"></div>
         <div class="mb-5 mx-auto ">
             <label asp-for="Login" class="text-xl font-medium text-white control-label"></label>
             <input asp-for="Login"
@@ -25,11 +24,19 @@
             <select asp-for="Role"
                 class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-xl ">
                 <option value="">-- Select a Role --</option>
-                @foreach (var role in (List<(string Value, string Text)>)ViewData["Roles"])
+                @if (ViewData["Roles"] is List<(string Value, string Text)> roles && roles.Any())
                 {
-                    <option value="@role.Value">@role.Text</option>
+                    foreach (var role in roles)
+                    {
+                        <option value="@role.Value">@role.Text</option>
+                    }
+                }
+                else
+                {
+                    <option value="" disabled>No roles available</option>
                 }
             </select>
+            <span asp-validation-for="Role" class="text-red-600 text-sm mt-1"></span>
         </div>
 
         <div class="mb-5 mx-auto flex justify-center">

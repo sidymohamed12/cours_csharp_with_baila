@@ -65,15 +65,14 @@
 
     <div class="px-5 w-1/2 mt-5 mx-auto border-2 bg-gradient-to-br from-green-400 to-blue-600 py-5 mb-5">
         <h1 class="text-white mb-5 pb-3 text-4xl text-center font-bold border-bottom-3 border-b-2 border-gray-900">
-            ENREGISTRER UN
-            PAYEMENT </h1>
+            ENREGISTRER UN PAYEMENT </h1>
         <form asp-action="Details" class="px-5 ">
-            <div asp-validation-summary="All" class="text-red-600 text-sm mt-1"></div>
             <div class="mb-5 mx-auto ">
                 <label class="text-xl font-medium text-white control-label">Entrer le prix à payer pour cette
                     Dette</label>
                 <input name="prixPayer" @(Model.Montant == Model.MontantVerser ? "disabled" : "")
                     class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-xl" />
+                <div asp-validation-summary="All" class="text-red-600 text-sm mt-1"></div>
             </div>
             <div class=" mx-auto flex justify-center">
                 <input type="submit" value="Create" @(Model.Montant == Model.MontantVerser ? "disabled" : "")

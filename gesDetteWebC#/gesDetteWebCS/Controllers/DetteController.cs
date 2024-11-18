@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using gesDetteWebCS.Data;
 using gesDetteWebCS.Models;
 using gesDetteWebCS.Models.enums;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace gesDetteWebCS.Controllers
 {
@@ -61,9 +57,15 @@ namespace gesDetteWebCS.Controllers
                 return NotFound();
             }
 
-            if (!string.IsNullOrEmpty(prixPayer) && double.TryParse(prixPayer, out double montant) && montant > 0)
+
+            if (!string.IsNullOrEmpty(prixPayer))
             {
-                Payement payement = new Payement
+                if (Convert.ToDouble(prixPayer) > dette.MontantRestant || Convert.ToDouble(prixPayer) <= 0)
+                {
+                    ModelState.AddModelError(string.Empty, "Le montant à payer dépasse le montant restant à payer ou invalide.");
+                    return View(dette);
+                }
+                Payement payement = new()
                 {
                     Date = DateTime.UtcNow,
                     Dette = dette,
@@ -73,6 +75,7 @@ namespace gesDetteWebCS.Controllers
                 _context.Add(payement);
                 dette.MontantVerser += Convert.ToDouble(prixPayer);
                 dette.onPreUpdated();
+                _context.Update(dette);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -90,7 +93,8 @@ namespace gesDetteWebCS.Controllers
             var articles = await _context.Articles.ToListAsync();
             ViewData["Articles"] = articles;
 
-            ViewData["Panier"] = TempData["Panier"] as List<Detail> ?? new List<Detail>();
+            var panier = HttpContext.Session.GetObjectFromJson<Panier>("Panier") ?? new Panier();
+            ViewData["Panier"] = panier;
             return View();
         }
 
@@ -98,63 +102,31 @@ namespace gesDetteWebCS.Controllers
         [HttpPost]
         public IActionResult AddArticle(int articleId, int qteVendu)
         {
-            var article = _context.Articles.Find(articleId);
-            if (article != null)
+            if (ModelState.IsValid)
             {
-                var detail = new Detail
+                var article = _context.Articles.Find(articleId);
+                if (article == null)
                 {
-                    Article = article,
-                    QteVendu = qteVendu,
-                    MontantVendu = article.Prix * qteVendu
-                };
+                    ModelState.AddModelError("", "Selection un article !");
+                    return RedirectToAction("Create");
+                }
 
-                // Récupérer le panier depuis TempData
-                var panier = TempData["Panier"] as List<Detail> ?? new List<Detail>();
-                panier.Add(detail);
+                if (qteVendu == 0)
+                {
+                    ModelState.AddModelError("", "Sqte non valide !");
+                    return RedirectToAction("Create");
+                }
+                var panier = HttpContext.Session.GetObjectFromJson<Panier>("Panier") ?? new Panier();
+                panier.AddinPanier(article, qteVendu);
 
-                // Stocker le panier mis à jour dans TempData
-                TempData["Panier"] = panier;
-                TempData.Keep("Panier");
+                HttpContext.Session.SetObjectAsJson("Panier", panier);
+
+                return RedirectToAction("Create");
             }
             return RedirectToAction("Create");
         }
-        // POST: Dette/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        // [HttpPost]
-        // [ValidateAntiForgeryToken]
-        // public async Task<IActionResult> CreateWithArticle([Bind("Montant,MontantVerser,Archiver,Date,EtatD,ClientD")] Dette dette)
-        // {
-        //     // Récupérer le panier des articles depuis TempData
-        //     var panier = TempData["Panier"] as List<Detail>;
-
-        //     if (panier != null && ModelState.IsValid)
-        //     {
-        //         dette.Details = panier;
-        //         dette.Montant = panier.Sum(d => d.MontantVendu);
-        //         dette.MontantVerser = 0.0;
-        //         dette.Date = DateTime.UtcNow;
-        //         dette.EtatD = Models.enums.Etat.encours;
-        //         dette.Archiver = false;
-        //         dette.onPrePersist();
-        //         _context.Add(dette);
-        //         await _context.SaveChangesAsync();
-
-        //         // Réinitialiser le panier après sauvegarde
-        //         TempData.Remove("Panier");
-
-        //         return RedirectToAction(nameof(Index));
-        //     }
-
-        //     ViewData["Clients"] = await _context.Clients.ToListAsync();
-        //     ViewData["Articles"] = await _context.Articles.ToListAsync();
-        //     ViewData["Panier"] = panier;
-        //     return View(dette);
-        // }
 
 
-
-        // ----------créer sans article --------------------
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Dette dette, int? clientId)
@@ -162,26 +134,45 @@ namespace gesDetteWebCS.Controllers
 
             if (ModelState.IsValid)
             {
-                var client = await _context.Clients.FindAsync(clientId);
+                var panier = HttpContext.Session.GetObjectFromJson<Panier>("Panier");
+                if (panier == null || !panier.ArticlesPanier.Any())
+                {
+                    ModelState.AddModelError("", "Le panier est vide.");
+                    return RedirectToAction("Create");
+                }
 
+                var client = await _context.Clients.FindAsync(clientId);
                 if (client == null)
                 {
                     ModelState.AddModelError("ClientD", "Client introuvable.");
-                    return View(dette);
+                    return RedirectToAction("Create");
                 }
+
                 dette.ClientD = client;
+                dette.Montant = panier.Total;
                 dette.MontantVerser = 0.0;
                 dette.EtatD = Etat.encours;
                 dette.Archiver = false;
                 dette.Date = DateTime.UtcNow;
                 dette.onPrePersist();
+                dette.Details = panier.ArticlesPanier;
+                foreach (var item in panier.ArticlesPanier)
+                {
+                    _context.Attach(item.Article);
+                    item.Dette = dette;
+                    item.onPrePersist();
+                    _context.Add(item);
+                }
                 _context.Add(dette);
                 await _context.SaveChangesAsync();
+                HttpContext.Session.Remove("Panier");
                 return RedirectToAction(nameof(Index));
             }
             ViewData["Clients"] = await _context.Clients.ToListAsync();
+            ViewData["Articles"] = await _context.Clients.ToListAsync();
             return View(dette);
         }
+
         // GET: Dette/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -264,6 +255,18 @@ namespace gesDetteWebCS.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult DeleteArticle(int articleId)
+        {
+            var panier = HttpContext.Session.GetObjectFromJson<Panier>("Panier");
+            if (panier != null)
+            {
+                panier = panier.DeleteArticle(articleId);
+                HttpContext.Session.SetObjectAsJson("Panier", panier);
+                ViewData["Panier"] = panier;
+            }
+            return RedirectToAction("Create");
         }
 
         private bool DetteExists(int id)

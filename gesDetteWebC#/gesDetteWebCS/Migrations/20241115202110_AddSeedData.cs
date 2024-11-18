@@ -81,7 +81,7 @@ namespace gesDetteWebCS.Migrations
                     MontantVerser = table.Column<double>(type: "double precision", nullable: false),
                     Archiver = table.Column<bool>(type: "boolean", nullable: false),
                     Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ClientDId = table.Column<int>(type: "integer", nullable: false),
+                    ClientDId = table.Column<int>(type: "integer", nullable: true),
                     EtatD = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -93,8 +93,7 @@ namespace gesDetteWebCS.Migrations
                         name: "FK_Dettes_Clients_ClientDId",
                         column: x => x.ClientDId,
                         principalTable: "Clients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(

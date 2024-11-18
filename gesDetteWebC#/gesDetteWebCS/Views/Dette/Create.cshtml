@@ -3,11 +3,35 @@
 <div class="bg-gradient-to-br from-green-400 to-blue-600 px-6 py-5 mx-auto mt-14 my-5 box-shadow3" style="width: 60%">
     <h1 class="text-center text-3xl mb-8 font-semibold underline">Nouvelle Ajout de Dette</h1>
 
+    <form asp-action="AddArticle" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="flex flex-row mt-5 justify-between items-center m-auto mb-4">
+            <div>
+                <select name="articleId"
+                    class="bg-gray-50 border border-slate-800 text-slate-800 text-sm font-medium rounded-lg w-full p-2.5">
+                    <option value="">-- Select an Article --</option>
+                    @foreach (var article in (IEnumerable<Article>)ViewData["Articles"])
+                    {
+                        <option value="@article.Id">@article.Libelle</option>
+                    }
+                </select>
+            </div>
+            <div>
+                <input name="qteVendu" type="number"
+                    class="bg-gray-50 border w-full border-gray-300 text-slate-800 text-sm rounded-lg block p-2.5"
+                    placeholder="Quantité" />
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+            </div>
+            <button type="submit"
+                class="bg-green-400 text-slate-800 font-medium rounded px-5 py-2 text-center mt-6 w-1/5">Ajouter</button>
+        </div>
+    </form>
+
     <form asp-action="Create" method="post">
         <div asp-validation-summary="All" class="text-danger"></div>
 
         <div class="mb-5 mx-auto">
-            <label asp-for="ClientD" class="text-xl font-medium text-white control-label"></label>
             <select asp-for="ClientD" name="clientId"
                 class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-xl">
                 <option value="">-- Select a Client --</option>
@@ -19,16 +43,38 @@
                     }
                 }
             </select>
-
             <span asp-validation-for="ClientD" class="text-red-600 text-sm mt-1"></span>
-
         </div>
 
-        <div class="mb-5 mx-auto">
-            <label asp-for="Montant" class="text-xl font-medium text-white control-label"></label>
-            <input asp-for="Montant" type="number"
-                class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-xl" />
-            <span asp-validation-for="Montant" class="text-red-600 text-sm mt-1"></span>
+
+
+        <!-- Tableau des articles ajoutés -->
+        <div class="table-responsive">
+            <table class="box-shadow-black2 border-3 mx-auto text-center w-full text-slate-800 mt-16">
+                <thead class="border-b-2 border-slate-800">
+                    <tr class="bg-gray-50">
+                        <th scope="col">Article</th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Montant</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center divide-y divide-slate-800">
+                    @foreach (var article in (ViewData["Panier"] as Panier)?.ArticlesPanier ?? new List<Detail>())
+                    {
+                        <tr>
+                            <td>@article.Article.Libelle</td>
+                            <td>@article.QteVendu</td>
+                            <td>@article.Article.Prix</td>
+                            <td>@article.MontantVendu</td>
+                            <td>
+                                <a asp-action="DeleteArticle" asp-route-articleId="@article.Article.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
 
         <!-- Bouton de création de dette -->

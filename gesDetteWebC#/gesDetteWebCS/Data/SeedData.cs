@@ -5,8 +5,14 @@ namespace gesDetteWebCS.Data
 {
     public static class SeedData
     {
+
         public static void Initialize(IServiceProvider serviceProvider, ApplicationDbContext context)
         {
+            if (context.Clients.Any())
+            {
+                Console.WriteLine("Les clients existent déjà dans la base de données.");
+                return;
+            }
 
             for (int i = 0; i < 10; i++)
             {

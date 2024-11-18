@@ -12,7 +12,7 @@ using gesDetteWebCS.Data;
 namespace gesDetteWebCS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241114113652_AddSeedData")]
+    [Migration("20241115202110_AddSeedData")]
     partial class AddSeedData
     {
         /// <inheritdoc />
@@ -140,7 +140,7 @@ namespace gesDetteWebCS.Migrations
                     b.Property<bool>("Archiver")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("ClientDId")
+                    b.Property<int?>("ClientDId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedAt")
@@ -263,10 +263,8 @@ namespace gesDetteWebCS.Migrations
             modelBuilder.Entity("gesDetteWebCS.Models.Dette", b =>
                 {
                     b.HasOne("gesDetteWebCS.Models.Client", "ClientD")
-                        .WithMany()
-                        .HasForeignKey("ClientDId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Dettes")
+                        .HasForeignKey("ClientDId");
 
                     b.Navigation("ClientD");
                 });
@@ -280,6 +278,11 @@ namespace gesDetteWebCS.Migrations
                         .IsRequired();
 
                     b.Navigation("Dette");
+                });
+
+            modelBuilder.Entity("gesDetteWebCS.Models.Client", b =>
+                {
+                    b.Navigation("Dettes");
                 });
 #pragma warning restore 612, 618
         }

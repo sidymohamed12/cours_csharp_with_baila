@@ -53,6 +53,7 @@ namespace gesDetteWebCS.Controllers
         {
             var roles = Enum.GetValues(typeof(Role))
                     .Cast<Role>()
+                    .Take(2)
                     .Select(r => (Value: r.ToString(), Text: r.ToString()))
                     .ToList();
 
@@ -65,23 +66,25 @@ namespace gesDetteWebCS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Login,Password,Role,Etat,Id,CreatedAt,UpdatedAt")] User user)
+        public async Task<IActionResult> Create(User user)
         {
+
             if (ModelState.IsValid)
             {
-                if (string.IsNullOrWhiteSpace(user.Login) || string.IsNullOrWhiteSpace(user.Password))
-                {
-                    ModelState.AddModelError("User.Login", "Le champ Login est requis.");
-                    ModelState.AddModelError("User.Password", "Le champ Password est requis.");
-                    return View(user);
-                }
                 user.Etat = true;
                 user.onPrePersist();
-                BCrypt.HashPassword(user.Password);
+                user.Password = BCrypt.HashPassword(user.Password);
                 _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            var roles = Enum.GetValues(typeof(Role))
+                                .Cast<Role>()
+                                .Take(2)
+                                .Select(r => (Value: r.ToString(), Text: r.ToString()))
+                                .ToList();
+
+            ViewData["Roles"] = roles;
             return View(user);
         }
 
